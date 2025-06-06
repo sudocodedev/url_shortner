@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_DB}
+    volumes:
+      - /home/vc/url_shortner:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres_network
+    restart: always
+
+networks:
+  postgres_network:
+    driver: bridge
