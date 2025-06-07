@@ -1,6 +1,7 @@
-from pathlib import Path
-import environ
 import os
+from pathlib import Path
+
+import environ
 
 # General
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,8 +24,14 @@ DJANGO_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 ]
-THIRD_PARTY_APPS = []
+
+THIRD_PARTY_APPS = [
+    "rest_framework",
+    "rest_framework.authtoken"
+]
+
 CUSTOM_APPS = []
+
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + CUSTOM_APPS
 
 
@@ -39,14 +46,15 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+# urls
 ROOT_URLCONF = "src.urls"
-
+APPEND_SLASH = True
 
 # Templates
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -60,6 +68,27 @@ TEMPLATES = [
 
 
 WSGI_APPLICATION = "src.wsgi.application"
+
+
+# Api & Rest Framework
+REST_FRAMEWORK = {
+    "DEFAULT_PARSER_CLASSES": [
+        "rest_framework.parsers.JSONParser",
+        "rest_framework.parsers.FormParser",
+        "rest_framework.parsers.MultiPartParser",
+    ],
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.SessionAuthentication",
+        'rest_framework.authentication.BasicAuthentication'
+    ),
+}
 
 
 # Database
