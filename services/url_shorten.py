@@ -9,7 +9,7 @@ class URLShortenService:
     """Service layer for managing shortened URLs."""
 
     @staticmethod
-    def get(code:str, fetch:bool=False):
+    def get(code: str, fetch: bool = False):
         """
         - Retrieve an active URL mapping by short code.
         - If `fetch` flag is True, update access stats on the instance.
@@ -25,7 +25,7 @@ class URLShortenService:
 
     @staticmethod
     @transaction.atomic
-    def create(data:dict):
+    def create(data: dict):
         """Create a new URL mapping."""
         serializer = URLShortenCUDSerializer(data)
         if serializer.is_valid(raise_exception=True):
@@ -34,7 +34,7 @@ class URLShortenService:
 
     @staticmethod
     @transaction.atomic
-    def update(code:str, data:dict):
+    def update(code: str, data: dict):
         """Partially update an existing URL mapping."""
         instance = URLShortenService.get(code)
         serializer = URLShortenCUDSerializer(instance, data=data, partial=True)
@@ -43,7 +43,7 @@ class URLShortenService:
         raise ValidationError("Instance not found.")
 
     @staticmethod
-    def delete(code:str):
+    def delete(code: str):
         """Deactivate a URL mapping (soft delete)."""
         instance = URLShortenService.get(code)
         instance.delete()

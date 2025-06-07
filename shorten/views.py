@@ -2,18 +2,8 @@ from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from common.models import URLMapping
 from services import URLShortenService
 from shorten.serializers import URLShortenRetrieveSerializer, URLShortenStatsSerializer
-
-
-class URLShortenStatsViewSet(viewsets.ReadOnlyModelViewSet):
-    """View to retrieve stats of respective URLMapping instance."""
-
-    queryset = URLMapping.objects.filter(is_active=True)
-    serializer_class = URLShortenStatsSerializer
-    lookup_field = "short_code"
-
 
 
 class URLShortenCRUDViewSet(viewsets.ViewSet):
@@ -41,7 +31,6 @@ class URLShortenCRUDViewSet(viewsets.ViewSet):
         """Deactivate (or delete) a URL mapping by short code."""
         URLShortenService.delete(short_code)
         return Response(status=status.HTTP_204_NO_CONTENT)
-
 
     @action(detail=True, methods=["get"], url_path="stats")
     def stats(self, request, short_code=None):

@@ -25,10 +25,7 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = [
-    "rest_framework",
-    "rest_framework.authtoken"
-]
+THIRD_PARTY_APPS = ["rest_framework", "rest_framework.authtoken"]
 
 CUSTOM_APPS = [
     "common",
@@ -89,7 +86,7 @@ REST_FRAMEWORK = {
     # ],
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.SessionAuthentication",
-        'rest_framework.authentication.BasicAuthentication'
+        "rest_framework.authentication.BasicAuthentication",
     ),
 }
 

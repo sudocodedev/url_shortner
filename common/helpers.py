@@ -21,6 +21,7 @@ def execute_query(query: str, fetch: bool = False):
     except Exception:
         return None
 
+
 # Lookup
 BASE58_STR_LOOKUP = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
