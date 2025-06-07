@@ -10,20 +10,12 @@ class BaseQuerySetManager(QuerySet):
         """"""
         try:
             return super().get(*args, **kwargs)
-        except (
-            AttributeError,
-            ValueError,
-            ValidationError,
-            MultipleObjectsReturned,
-            ObjectDoesNotExist
-        ):
+        except (AttributeError, ValueError, ValidationError, MultipleObjectsReturned, ObjectDoesNotExist):
             return None
-
 
     def delete(self):
         """"""
         return super().update(is_active=False, is_deleted=True, deleted=timezone.now())
-
 
     def hard_delete(self):
         """"""

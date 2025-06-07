@@ -25,12 +25,12 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = [
-    "rest_framework",
-    "rest_framework.authtoken"
-]
+THIRD_PARTY_APPS = ["rest_framework", "rest_framework.authtoken"]
 
-CUSTOM_APPS = []
+CUSTOM_APPS = [
+    "common",
+    "shorten",
+]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + CUSTOM_APPS
 
@@ -81,12 +81,12 @@ REST_FRAMEWORK = {
         "rest_framework.renderers.JSONRenderer",
         "rest_framework.renderers.BrowsableAPIRenderer",
     ],
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.IsAuthenticated",
-    ],
+    # "DEFAULT_PERMISSION_CLASSES": [
+    #     "rest_framework.permissions.IsAuthenticated",
+    # ],
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.SessionAuthentication",
-        'rest_framework.authentication.BasicAuthentication'
+        "rest_framework.authentication.BasicAuthentication",
     ),
 }
 

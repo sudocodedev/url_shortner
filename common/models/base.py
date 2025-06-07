@@ -27,20 +27,20 @@ class BaseModel(models.Model):
         to=settings.AUTH_USER_MODEL,
         related_name="created_%(class)s",
         on_delete=models.SET_DEFAULT,
-        **COMMON_NULLABLE_BLANK_DEFAULT_CONFIG
+        **COMMON_NULLABLE_BLANK_DEFAULT_CONFIG,
     )
     updated_by = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         related_name="updated_%(class)s",
         on_delete=models.SET_DEFAULT,
-        **COMMON_NULLABLE_BLANK_DEFAULT_CONFIG
+        **COMMON_NULLABLE_BLANK_DEFAULT_CONFIG,
     )
 
     deleted_by = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         related_name="deleted_%(class)s",
         on_delete=models.SET_DEFAULT,
-        **COMMON_NULLABLE_BLANK_DEFAULT_CONFIG
+        **COMMON_NULLABLE_BLANK_DEFAULT_CONFIG,
     )
 
     objects = BaseQuerySetManager.as_manager()
