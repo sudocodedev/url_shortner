@@ -25,7 +25,11 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = ["rest_framework", "rest_framework.authtoken"]
+THIRD_PARTY_APPS = [
+    "rest_framework",
+    "rest_framework.authtoken",
+    'drf_spectacular',
+]
 
 CUSTOM_APPS = [
     "common",
@@ -72,6 +76,7 @@ WSGI_APPLICATION = "src.wsgi.application"
 
 # Api & Rest Framework
 REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     "DEFAULT_PARSER_CLASSES": [
         "rest_framework.parsers.JSONParser",
         "rest_framework.parsers.FormParser",
@@ -134,3 +139,16 @@ STATIC_URL = "static/"
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# Swagger config
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Tinyied URL Shortner API',
+    'DESCRIPTION': 'API documentation for URL Shortener',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SECURITY': [
+        {'apiKeyAuth': []},
+    ],
+    'COMPONENT_SPLIT_REQUEST': True,
+}
