@@ -10,8 +10,6 @@ class URLMapping(BaseModel):
     Contains the invoice details.
 
     ********************* Model Fields *********************
-        PK          - id
-        Unique      - uuid
         DateTime    - last_accessed, expiry_tm
         Char        - short_code
         PositiveInt - access_count
