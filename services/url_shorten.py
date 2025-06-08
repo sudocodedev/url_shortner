@@ -27,7 +27,7 @@ class URLShortenService:
     @transaction.atomic
     def create(data: dict):
         """Create a new URL mapping."""
-        serializer = URLShortenCUDSerializer(data)
+        serializer = URLShortenCUDSerializer(data=data)
         if serializer.is_valid(raise_exception=True):
             return serializer.save()
         raise ValidationError("Instance not found.")
