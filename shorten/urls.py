@@ -13,5 +13,5 @@ url_shorten_RUD = URLShortenCRUDViewSet.as_view({"get": "retrieve", "put": "upda
 urlpatterns = [
     path("shorten/", url_shorten_create),
     path("shorten/<str:short_code>/", url_shorten_RUD),
-    path("shorten/<str:short_code>/stats/", URLShortenCRUDViewSet.as_view({"get": "retrieve"})),
+    path("shorten/<str:short_code>/stats/", URLShortenCRUDViewSet.as_view({"get": "stats"})),
 ]

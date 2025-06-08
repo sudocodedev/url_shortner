@@ -4,7 +4,7 @@ from django.conf import settings
 from django.db import models
 
 from common.manager import BaseQuerySetManager
-from common.models import COMMON_NULLABLE_BLANK_DEFAULT_CONFIG
+from common.models.config import COMMON_NULLABLE_BLANK_DEFAULT_CONFIG
 
 
 class BaseModel(models.Model):
