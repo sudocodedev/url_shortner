@@ -7,7 +7,7 @@ from common.models import COMMON_CHAR_MAX_LENGTH, COMMON_NULLABLE_BLANK_DEFAULT_
 
 class URLMapping(BaseModel):
     """
-    Contains the invoice details.
+    Contains the URLMapping details.
 
     ********************* Model Fields *********************
         DateTime    - last_accessed, expiry_tm

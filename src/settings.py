@@ -34,6 +34,7 @@ THIRD_PARTY_APPS = [
 CUSTOM_APPS = [
     "common",
     "shorten",
+    "access",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + CUSTOM_APPS
@@ -124,6 +125,10 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+
+# User model
+AUTH_USER_MODEL = 'access.User'
 
 
 # Timezone & Localization

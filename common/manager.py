@@ -1,6 +1,56 @@
+from django.contrib.auth.models import BaseUserManager
 from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist, ValidationError
 from django.db.models import QuerySet
 from django.utils import timezone
+
+
+class UserManager(BaseUserManager):
+
+    def _create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError("Email is required.")
+        user = self.model(email=self.normalize_email(email), **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+    
+
+    def create_user(self, email, password=None, **extra_fields):
+        extra_fields.setdefault("is_staff", False)
+        extra_fields.setdefault("is_superuser", False)
+        extra_fields.setdefault("is_active", False)
+        return self._create_user(email, password, **extra_fields)
+    
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        if not email:
+            email = input("Email: ")
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+        extra_fields.setdefault("is_active", True)
+
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError("For super user, is_staff must be set to True")
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError("For super user, is_superuser must be set to True")
+        return self._create_user(email, password, **extra_fields)
+    
+
+    def get_or_none(self, *args, **kwargs):
+        """
+        Retrieves a single object matching the given query parameters.
+        Returns None if no object is found or if an error occurs (e.g., multiple objects found).
+        """
+        try:
+            return super().get(*args, **kwargs)
+        except (
+            ValueError,
+            AttributeError,
+            MultipleObjectsReturned,
+            ObjectDoesNotExist,
+            ValidationError
+        ):
+            return None
 
 
 class BaseQuerySetManager(QuerySet):
