@@ -41,6 +41,7 @@ DATABASE_PASSWORD=
 DATABASE_DB=
 DATABASE_PORT=
 DATABASE_HOST=
+VOLUME_PATH=
 ```
 
 ### 📦 3. Install Dependencies
