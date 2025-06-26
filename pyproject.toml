@@ -13,6 +13,7 @@ dependencies = [
     "djangorestframework-simplejwt>=5.5.0",
     "drf-spectacular[redoc,swagger]>=0.28.0",
     "psycopg2-binary>=2.9.10",
+    "setuptools>=80.9.0",
 ]
 
 

@@ -1,5 +1,4 @@
 from rest_framework import status
-from rest_framework.decorators import action
 from rest_framework.mixins import CreateModelMixin
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -66,8 +65,12 @@ class UserProfileAPIView(APIView):
         user.delete()
         return Response({"success": ["Profile Deleted."]}, status=status.HTTP_204_NO_CONTENT)
 
-    @action(detail=True, methods=["post"], url_path="set-password")
-    def set_password(self, request):
+
+
+class SetPasswordAPIView(APIView):
+    """View to set password for user profile for authenticated user"""
+
+    def post(self, request, *args, **kwargs):
         """User can set password in their profile"""
         user = request.user
         serializer = PasswordSerializer(data=request.data)
