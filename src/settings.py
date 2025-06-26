@@ -29,8 +29,9 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
-    'rest_framework_simplejwt.token_blacklist',
-    'drf_spectacular',
+    "rest_framework_simplejwt.token_blacklist",
+    "drf_spectacular",
+    "django_celery_beat",
 ]
 
 CUSTOM_APPS = [
@@ -79,7 +80,7 @@ WSGI_APPLICATION = "src.wsgi.application"
 
 # Api & Rest Framework
 REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_PARSER_CLASSES": [
         "rest_framework.parsers.JSONParser",
         "rest_framework.parsers.FormParser",
@@ -93,7 +94,7 @@ REST_FRAMEWORK = {
     #     "rest_framework.permissions.IsAuthenticated",
     # ],
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.BasicAuthentication",
     ),
@@ -131,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # User model
-AUTH_USER_MODEL = 'access.User'
+AUTH_USER_MODEL = "access.User"
 
 
 # Timezone & Localization
@@ -151,14 +152,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Swagger config
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Tinyied URL Shortner API',
-    'DESCRIPTION': 'API documentation for URL Shortener',
-    'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
-    'SECURITY': [
-        {'apiKeyAuth': []},
+    "TITLE": "Tinyied URL Shortner API",
+    "DESCRIPTION": "API documentation for URL Shortener",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "SECURITY": [
+        {"apiKeyAuth": []},
     ],
-    'COMPONENT_SPLIT_REQUEST': True,
+    "COMPONENT_SPLIT_REQUEST": True,
 }
 
 
@@ -169,3 +170,23 @@ SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
 }
+
+
+# Redis configs
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": env.str("REDIS_URL", default=""),
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+    }
+}
+
+
+# Celery configs
+CELERY_BROKER_URL = env.str("REDIS_URL", default="")
+CELERY_RESULT_BACKEND = env.str("REDIS_URL", default="")
+CELERY_TIMEZONE = "Asia/Kolkata"
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
