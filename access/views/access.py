@@ -53,7 +53,7 @@ class UserProfileAPIView(APIView):
     def update(self, request, *args, **kwargs):
         """Update user profile"""
         user = request.user
-        serializer = UserProfileCUDSerializer(user, data = request.data, partial=True)
+        serializer = UserProfileCUDSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -64,7 +64,6 @@ class UserProfileAPIView(APIView):
         user = request.user
         user.delete()
         return Response({"success": ["Profile Deleted."]}, status=status.HTTP_204_NO_CONTENT)
-
 
 
 class SetPasswordAPIView(APIView):
@@ -79,7 +78,9 @@ class SetPasswordAPIView(APIView):
 
         password = serializer.validated_data.pop("password")
         if user.check_password(password):
-            return Response({"error": ["New password can't be same as old password."]}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"error": ["New password can't be same as old password."]}, status=status.HTTP_400_BAD_REQUEST
+            )
         user.set_password(password)
         user.save()
         return Response({"success": ["Password set successfully."]}, status=status.HTTP_200_OK)

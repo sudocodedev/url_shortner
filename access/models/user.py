@@ -24,7 +24,7 @@ class User(BaseModel, AbstractUser):
     gender = models.CharField(
         max_length=COMMON_CHAR_MAX_LENGTH,
         choices=GenderChoices.choices,
-        **COMMON_NULLABLE_BLANK_DEFAULT_CONFIG
+        **COMMON_NULLABLE_BLANK_DEFAULT_CONFIG,
     )
     is_admin = models.BooleanField(default=False)
 

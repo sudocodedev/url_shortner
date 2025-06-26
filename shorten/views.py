@@ -17,7 +17,7 @@ class URLShortenCRUDViewSet(viewsets.ViewSet):
     @extend_schema(
         request=URLShortenCUDSerializer,
         responses=URLShortenRetrieveSerializer,
-        description="Creates URLMapping instance."
+        description="Creates URLMapping instance.",
     )
     def create(self, request):
         """Create a new shortened URL entry."""
@@ -25,10 +25,9 @@ class URLShortenCRUDViewSet(viewsets.ViewSet):
         serializer = URLShortenRetrieveSerializer(instance)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-
     @extend_schema(
         responses=URLShortenRetrieveSerializer,
-        description="Retrieve respective URLMapping instance by short code."
+        description="Retrieve respective URLMapping instance by short code.",
     )
     def retrieve(self, request, short_code=None):
         """Retrieve an active URL mapping and optionally update access statistics."""
@@ -36,11 +35,10 @@ class URLShortenCRUDViewSet(viewsets.ViewSet):
         serializer = URLShortenRetrieveSerializer(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-
     @extend_schema(
         request=URLShortenCUDSerializer,
         responses=URLShortenRetrieveSerializer,
-        description="Updates respective URLMapping instance by short code."
+        description="Updates respective URLMapping instance by short code.",
     )
     def update(self, request, short_code=None):
         """Partially update an existing URL mapping using its short code."""
@@ -48,15 +46,11 @@ class URLShortenCRUDViewSet(viewsets.ViewSet):
         serializer = URLShortenRetrieveSerializer(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-
-    @extend_schema(
-        description="Deletes respective URLMapping instance by short code."
-    )
+    @extend_schema(description="Deletes respective URLMapping instance by short code.")
     def destroy(self, request, short_code=None):
         """Deactivate (or delete) a URL mapping by short code."""
         URLShortenService.delete(short_code)
         return Response(status=status.HTTP_204_NO_CONTENT)
-
 
     @extend_schema(
         description="Retrieve stats of the respective URLMapping instance by short code.",
